@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Gallery — hello.studio</title><link rel="stylesheet" href="pages.css"></head>
+<body><div class="shell"><header><a class="brand" href="hello-world.html"><span class="mark" aria-hidden="true">✳</span>hello.studio</a><nav aria-label="Main navigation"><a href="hello-world.html">Home</a><a href="gallery.html" aria-current="page">Gallery</a><a href="contact.html">Contact</a></nav></header>
+<main><p class="eyebrow">A collection of colorful possibilities</p><h1>A little <span>eye candy.</span></h1><p class="intro">Shapes, colors, and happy little experiments.<br>Explore the collection. Find your spark.</p>
+<div class="filters" role="group" aria-label="Filter gallery"><button aria-pressed="true" data-filter="all">All explorations</button><button aria-pressed="false" data-filter="abstract">Abstract</button><button aria-pressed="false" data-filter="landscape">Landscapes</button><button aria-pressed="false" data-filter="cosmic">Cosmic</button></div>
+<div class="gallery">
+<button class="tile" data-category="abstract" data-art="aurora" data-description="Soft lavender meets mint in a luminous study of flowing color."><span class="art aurora" aria-hidden="true"></span><span class="caption"><strong>Aurora dreams</strong><small>01 / ABSTRACT</small></span></button>
+<button class="tile" data-category="landscape" data-art="sunset" data-description="A warm sun settles above a quiet, shimmering horizon."><span class="art sunset" aria-hidden="true"></span><span class="caption"><strong>Golden hour</strong><small>02 / LANDSCAPES</small></span></button>
+<button class="tile" data-category="cosmic" data-art="orbit" data-description="A pastel planet and its tilted ring, somewhere beyond the everyday."><span class="art orbit" aria-hidden="true"></span><span class="caption"><strong>Out of orbit</strong><small>03 / COSMIC</small></span></button>
+<button class="tile" data-category="abstract" data-art="bloom" data-description="Overlapping petals of pink and violet make an imaginary flower."><span class="art bloom" aria-hidden="true"></span><span class="caption"><strong>Soft bloom</strong><small>04 / ABSTRACT</small></span></button>
+<button class="tile" data-category="landscape" data-art="waves" data-description="Layers of sea glass green wash across a deep blue backdrop."><span class="art waves" aria-hidden="true"></span><span class="caption"><strong>Ocean state</strong><small>05 / LANDSCAPES</small></span></button>
+<button class="tile" data-category="abstract" data-art="prism" data-description="A floating prism brings a full spectrum of playful color into focus."><span class="art prism" aria-hidden="true"></span><span class="caption"><strong>Prism playground</strong><small>06 / ABSTRACT</small></span></button>
+</div><p class="status" id="gallery-status" role="status">6 explorations · Select a piece for a closer look.</p></main>
+<footer><span>Original CSS artwork. A little imagination, a lot of color.</span><a href="contact.html">Let's create together ↗</a></footer></div>
+<dialog id="preview" aria-labelledby="preview-title"><div id="preview-art" class="art" aria-hidden="true"></div><h2 id="preview-title"></h2><p id="preview-description"></p><form method="dialog"><button>Close preview</button></form></dialog>
+<script>
+const tiles=[...document.querySelectorAll('.tile')],filters=document.querySelectorAll('[data-filter]'),preview=document.getElementById('preview');
+filters.forEach(button=>button.addEventListener('click',()=>{filters.forEach(item=>item.setAttribute('aria-pressed',String(item===button)));let count=0;tiles.forEach(tile=>{tile.hidden=button.dataset.filter!=='all'&&tile.dataset.category!==button.dataset.filter;if(!tile.hidden)count++;});document.getElementById('gallery-status').textContent=`${count} explorations · Select a piece for a closer look.`;}));
+tiles.forEach(tile=>tile.addEventListener('click',()=>{document.getElementById('preview-art').className='art '+tile.dataset.art;document.getElementById('preview-title').textContent=tile.querySelector('strong').textContent;document.getElementById('preview-description').textContent=tile.dataset.description;preview.showModal();}));
+preview.addEventListener('click',event=>{const bounds=preview.getBoundingClientRect();if(event.target===preview&&(event.clientX<bounds.left||event.clientX>bounds.right||event.clientY<bounds.top||event.clientY>bounds.bottom))preview.close();});
+</script></body></html>

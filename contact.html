@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Contact — hello.studio</title><link rel="stylesheet" href="pages.css"></head>
+<body><div class="shell">
+<header><a class="brand" href="hello-world.html"><span class="mark" aria-hidden="true">✳</span>hello.studio</a><nav aria-label="Main navigation"><a href="hello-world.html">Home</a><a href="gallery.html">Gallery</a><a href="contact.html" aria-current="page">Contact</a></nav></header>
+<main><p class="eyebrow">Good things start with a conversation</p><h1>Let's make<br><span>something great.</span></h1>
+<div class="contact-layout"><section><p class="intro">An idea, a question, or just a little hello.<br>Give your next big thing a place to begin.</p><div class="note"><strong>Your next chapter starts here. ✦</strong><br>Tell us what you're imagining, what inspires you, and what you'd love to create.</div><p class="note">This page prepares a message you can copy and share. Delivery will be available once a contact address or service is connected.</p></section>
+<form class="panel" id="contact-form"><label for="name">Your name</label><input id="name" name="name" autocomplete="name" placeholder="Alex Morgan" required maxlength="100"><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" placeholder="alex@example.com" required maxlength="254"><label for="message">What's on your mind?</label><textarea id="message" name="message" placeholder="I have an idea for…" required maxlength="5000"></textarea><button type="submit">Prepare message ↗</button><p class="status" id="status" role="status"></p><div id="draft-area" hidden><label for="draft">Your message — ready to copy</label><textarea id="draft" readonly rows="7"></textarea><button type="button" id="copy">Copy message</button></div></form></div></main>
+<footer><span>A tiny page with a big imagination.</span><a href="gallery.html">A little inspiration ↗</a></footer></div>
+<script>
+const form=document.getElementById('contact-form'),status=document.getElementById('status'),draft=document.getElementById('draft');
+form.addEventListener('submit',event=>{event.preventDefault();const name=form.elements.name.value.trim(),body=form.elements.message.value.trim();if(!name||!body){status.textContent='Please add your name and a message.';return;}draft.value=`From: ${name}\nEmail: ${form.elements.email.value.trim()}\n\n${body}`;document.getElementById('draft-area').hidden=false;status.textContent='Your message is ready. It has not been sent.';draft.focus();});
+document.getElementById('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(draft.value);status.textContent='Copied! Paste your message wherever you want to share it.';}catch{draft.focus();draft.select();status.textContent='Message selected. Press Ctrl+C (or Command+C) to copy.';}});
+</script></body></html>
